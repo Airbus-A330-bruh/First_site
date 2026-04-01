@@ -11,6 +11,26 @@
   <a href="https://github.com/Airbus-A330-bruh/BRUH/">Visit the repo</a>
   <p contenteditable="true">U can edit this, try it!</p>
   <p style="color:white;background:white;" contenteditable="true">U found the secret text :D</p>
+  <hr>
+
+<h2>Try some xss here</h2>
+
+<p>anything here will be run without qestion</p>
+
+<input id="xssInput" placeholder="Type HTML or JS here">
+<button onclick="inject()">Inject</button>
+
+<div id="output"></div>
+
+<script>
+function inject() {
+  const userInput = document.getElementById("xssInput").value;
+
+ 
+  document.getElementById("output").innerHTML +=
+    "<div>" + userInput + "</div>";
+}
+</script>
 </body>
 </html>
 
