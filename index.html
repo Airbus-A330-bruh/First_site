@@ -10,9 +10,9 @@
 <script data-goatcounter="https://airbus-a330-bruh.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 <p>hi</p>
-  <a href="https://github.com/Airbus-A330-bruh/BRUH/">Visit the repo</a>
+  <a href="https://github.com/Airbus-A330-bruh/BRUH/">Visit the Repo</a>
   <p contenteditable="true"></p>
-  <p style="color:white;background:white;" contenteditable="true">U found the secret text :D</p>
+  <p style="color:white;background:white;" contenteditable="true">You found the secret text :D</p>
   <hr>
   <input id="peerIdInput" placeholder="Remote Peer ID">
 <button onclick="connectToPeer()">Connect</button>
@@ -21,9 +21,9 @@
 
 
 
-<h2>Try some xss here</h2>
+<h2> xss here</h2>
 
-<p>xss here will be run without qestion (note needs to be onerror or smth similar, browser needs a trigger to run the script</p>
+<p><p>
 
 <input id="xssInput" placeholder="Type HTML or JS here">
 <button onclick="inject()">Inject</button>
@@ -34,11 +34,11 @@
 // "unique" id? no
 // sorry for the cringe name lol
 const randomNum = Math.floor(Math.random() * 1000);
-const peer = new Peer('test-id-' + Math.floor(Math.random() * 1000), {
+const peer = new Peer('test-id-' + Math.floor(Math.random() * 1000), { // random id generation
   config: {
     'iceServers': [
       { urls: 'stun:stun.l.google.com:19302' }, 
-      { urls: 'stun:stun1.l.google.com:19302' }
+      { urls: 'stun:stun1.l.google.com:19302' }                        // stun servers to fix device communication i think
     ]
   }
 });
@@ -73,10 +73,10 @@ function setupChat() {
 function inject() {
   const userInput = document.getElementById("xssInput").value;
   
-  // Show it on your screen
+  // show it on screen
   document.getElementById("output").innerHTML += "<div>You: " + userInput + "</div>";
 
-  // If connected, send the XSS payload to your friend's screen
+  // If connected, send input to peer
   if (conn && conn.open) {
     conn.send(userInput);
   }
