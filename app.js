@@ -1,4 +1,3 @@
-
 // "unique" id? no
 // sorry for the cringe name lol
 const randomNum = Math.floor(Math.random() * 1000);
@@ -14,11 +13,14 @@ const peer = new Peer('test-id-' + Math.floor(Math.random() * 1000), { // random
 // share ur id to be even more vulnerable yay
 peer.on('open', (id) => {
   document.getElementById('my-id').innerText = id;
+  updateStatus();
 });
 
 
+let conn;
 peer.on('connection', (incomingConn) => {
   conn = incomingConn;
+  updateStatus();
   setupChat();
 });
 
@@ -26,6 +28,11 @@ peer.on('connection', (incomingConn) => {
 function connectToPeer() {
   const remoteId = document.getElementById("peerIdInput").value;
   conn = peer.connect(remoteId);
+  
+  conn.on('open', function() {
+    updateStatus();
+  });
+  
   setupChat();
 }
 
@@ -34,6 +41,10 @@ function setupChat() {
   conn.on('data', (data) => {
    
     document.getElementById("output").innerHTML += "<div>Peer sent: " + data + "</div>";
+  });
+  
+  conn.on('close', function() {
+    updateStatus();
   });
 }
 
@@ -52,3 +63,9 @@ function inject() {
 
 }
 
+// Update status display function
+function updateStatus() {
+  document.getElementById('status-my-id').textContent = peer.id || 'Loading...';
+  document.getElementById('status-connected').textContent = (conn && conn.open) ? 'Yes' : 'No';
+  document.getElementById('status-remote-id').textContent = (conn && conn.open) ? conn.peer : 'None';
+}
